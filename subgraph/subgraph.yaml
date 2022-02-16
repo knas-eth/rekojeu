@@ -1,0 +1,25 @@
+specVersion: 0.0.3
+description: Rekojeu
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: GreetingsRegistry
+    network: mainnet
+    source:
+      address: '0x887C024fE4971a3cAA6B6a1b611054A41a0a6aB6'
+      abi: GreetingsRegistryContract
+      startBlock: 14219330
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - MessageEntry
+      abis:
+        - name: GreetingsRegistryContract
+          file: ./abis/GreetingsRegistry.json
+      eventHandlers:
+        - event: MessageChanged(indexed address,string)
+          handler: handleMessageChanged
+      file: ./src/mapping.ts
